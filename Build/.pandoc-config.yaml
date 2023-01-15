@@ -1,0 +1,13 @@
+---
+bibliography: ["/Users/will/Zotero/library.bib"]
+csl: "/Users/will/Zotero/styles/modern-language-association.csl"
+link-citations: true
+linkReferences: true
+nameInLink: true
+figPrefix:
+  - "Fig."
+  - "Figs."
+papersize: a4
+colorlinks: true
+links-as-notes: true
+---

@@ -1,0 +1,16 @@
+```
+fail-if-warnings: true
+log-file: FILE
+filters:
+  - count-words.lua 
+extract-media: dir
+standalone: true
+template: letter
+reference-doc: my.docx 
+citeproc: true
+metadata:
+  bibliography: logic.bib
+  csl: ieee.csl
+html-math-method:
+  method: mathjax 
+```

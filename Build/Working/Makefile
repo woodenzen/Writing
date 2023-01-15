@@ -1,0 +1,87 @@
+# Makefile
+# 
+# Converts Markdown to other formats (HTML, PDF, DOCX, RTF, ODT, EPUB) using Pandoc
+# <http://johnmacfarlane.net/pandoc/>
+#
+# Run "make" (or "make all") to convert to all other formats
+#
+# Run "make clean" to delete converted files
+
+# Convert all files in this directory that have a .md suffix
+SOURCE_DOCS := $(wildcard *.md)
+
+EXPORTED_DOCS=\
+ $(SOURCE_DOCS:.md=.html) \
+ $(SOURCE_DOCS:.md=.pdf) \
+ $(SOURCE_DOCS:.md=.docx) \
+ $(SOURCE_DOCS:.md=.epub)
+
+HTML=$(SOURCE_DOCS:.md=.html)
+PDFS=$(SOURCE_DOCS:.md=.pdf)
+DOCX=$(SOURCE_DOCS:.md=.docx)
+EPUB=$(SOURCE_DOCS:.md=.epub)
+
+RM=/bin/rm -f
+MV=/bin/mv
+
+PANDOC=/usr/local/bin/pandoc
+
+PANDOC_OPTIONS=-s -C
+
+PANDOC_HTML_OPTIONS=\
+ --to html5
+PANDOC_PDF_OPTIONS=
+PANDOC_DOCX_OPTIONS=\
+ --csl=/Users/will/Pandoc/mla.csl\
+ --bibliography=/Users/will/Zotero/Mylibrary.bib\
+ --reference-doc=/Users/will/Dropbox/zettelkasten/Writing/Tools/Templates/ref.docx
+PANDOC_EPUB_OPTIONS=--to epub3
+
+
+# Pattern-matching Rules
+
+%.html : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_HTML_OPTIONS) -o $@ $<
+
+%.pdf : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_PDF_OPTIONS) -o $@ $<
+	
+%.docx : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_DOCX_OPTIONS) -o $@ $<
+
+%.epub : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_EPUB_OPTIONS) -o $@ $<
+
+
+# Targets and dependencies
+
+.PHONY: all clean
+
+all : clean $(EXPORTED_DOCS) stage
+html : cleanhtml $(HTML) stage
+pdf : cleanpdf $(PDFS) stage
+docx : cleandocx $(DOCX) stage
+epub : cleanepub $(EPUB) stage
+
+
+clean:
+	rm -f _stage/*.html
+	rm -f _stage/*.pdf
+	rm -f _stage/*.docx
+	rm -f _stage/*.epub
+
+cleanpdf:	
+	rm -f _stage/*.pdf	
+
+cleandocx:	
+	rm -f _stage/*.docx
+
+cleanhtml:	
+	rm -f _stage/*.html
+
+cleanepub:	
+	rm -f _stage/*.epub
+
+stage:
+	- $(MV) $(EXPORTED_DOCS) _stage
+	

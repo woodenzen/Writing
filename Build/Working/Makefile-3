@@ -1,0 +1,50 @@
+## Markdown extension (e.g. md, markdown, mdown).
+MEXT = md
+
+## All markdown files in the working directory
+SRC = $(wildcard *.$(MEXT))
+
+## Location of Pandoc support files.
+PREFIX = /Users/will/Pandoc
+
+## Project name
+PROJ = $(shell basename $(CURDIR))
+
+## Location of your working bibliography file
+## BIB = $(CURDIR)/$(PROJ).bib
+BIB = /Users/will/Zotero/Mylibrary.bib
+
+## CSL stylesheet (located in the csl folder of the PREFIX directory).
+CSL = mla
+
+PDFS=$(SRC:.md=.pdf)
+DOCX=$(SRC:.md=.docx)
+
+all:	clean-product $(PDFS) $(DOCX) clean-meta stage
+pdf:	clean-product $(PDFS) clean-meta
+docx:	clean-product $(DOCX)
+
+clean:  clean-product clean-meta
+
+
+
+%.pdf:	%.md
+	pandoc -r -C $(OPTIONS) -s --pdf-engine=pdflatex --template=$(PREFIX)/templates/latex.template --csl=$(PREFIX)/csl/$(CSL).csl --bibliography=$(BIB) -o $@ $<
+	
+%.docx:	%.md
+	pandoc -s -C --csl=$(PREFIX)/$(CSL).csl --resource-path=$(PREFIX) --bibliography=$(BIB) --reference-doc=/Users/will/Dropbox/zettelkasten/Writing/Tools/custom-reference.docx -o _stage/$@ $<
+
+%.pdf:	%.md
+ 	pandoc -s -C --pdf-engine=xelatex --listings --csl=$(PREFIX)/csl/$(CSL).csl --bibliography=$(BIB) -o _stage/$@ $<
+
+clean-product:
+	rm -f _stage/*.pdf _stage/*.docx
+
+clean-meta:
+	rm -f *.aux *.bbl *.blg *.bcf *.log *.out *.xml
+
+
+stage:
+	mv *.pdf _stage
+	mv *.docx _stage
+	mv *.pdf.tex _stage
