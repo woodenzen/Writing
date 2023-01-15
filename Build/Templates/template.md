@@ -1,8 +1,15 @@
 ---
 title: Essay Title
 author: Will Simpson
-date: December 8, 2022 2  
+date: \today  
+mainfont: Times.ttf
+sansfont: Times.ttf
+monofont: DejaVuSansMono.ttf 
+mathfont: texgyredejavu-math.otf 
+bibliography: [/Users/will/Zotero/My Library.bib]
+csl: mla.csl
 link-citations: true
+urlcolor: "blue"
 linkReferences: true
 reference-section-title: Works Cited
 nameInLink: true
