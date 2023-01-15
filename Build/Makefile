@@ -17,9 +17,9 @@ MEXT = md
 SOURCE_DOCS := $(wildcard *.$(MEXT))
 
 ## Location of Pandoc support files.
-BUILD = /Users/will/Dropbox/zettelkasten/Writing/Build
-TPLT = /Users/will/Dropbox/zettelkasten/Writing/Build/Templates
-LATEX = /Users/will/Dropbox/zettelkasten/Writing/Build/LATEX
+BUILD = /Users/will/Dropbox/Projects/Writing/Build
+TPLT = /Users/will/Dropbox/Projects/Writing/Build/Templates
+LATEX = /Users/will/Dropbox/Projects/Writing/Build/LATEX
 
 ## Project name
 PROJ = $(shell basename $(CURDIR))
