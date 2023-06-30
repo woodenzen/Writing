@@ -14,6 +14,8 @@ mkdir _stage
 touch README.markdown
 # touch scratch-$NAME.md
 cp /Users/will/Dropbox/Projects/Writing/Build/Makefile .
+cp "/Users/will/Dropbox/zettelkasten/Write Better Sentences 202301142155.md" /Users/will/Dropbox/Projects/Writing/Active/$1/_editing
+cp "/Users/will/Dropbox/zettelkasten/Editing Checklist 202002081650.md" /Users/will/Dropbox/Projects/Writing/Active/$1/_editing
 #cp ~/.pandoc/vc-git.awk .
 # touch .gitignore
 # echo ".DS_Store" >> .gitignore
