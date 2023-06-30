@@ -14,7 +14,8 @@
 
 MEXT = md
 
-SOURCE_DOCS := $(wildcard *.$(MEXT))
+# SOURCE_DOCS := $(wildcard *.$(MEXT))
+SOURCE_DOCS := $(shell find . -name '*.$(MEXT)' -type f -maxdepth 1)
 
 ## Location of Pandoc support files.
 BUILD = /Users/will/Dropbox/Projects/Writing/Build
@@ -26,7 +27,7 @@ PROJ = $(shell basename $(CURDIR))
 
 ## Location of your working bibliography file
 ## BIB = $(CURDIR)/$(PROJ).bib
-BIB = /Users/will/Dropbox/Apps/Zotero/library.bib
+BIB = /Users/will/Zotero/library.bib
 
 ## CSL stylesheet (located in the csl folder of the BUILD directory).
 CSL = mla
@@ -114,6 +115,35 @@ cleanhtml:
 
 cleanepub:	
 	rm -f _stage/*.epub
+	
+
+debug:
+	@echo Rule -> $@
+	@echo '             BIB: $(BIB)'
+	@echo '          PANDOC: $(PANDOC)'
+	@echo '     SOURCE_DOCS: $(SOURCE_DOCS)'
+	@echo '            PROJ: $(PROJ)'
+	@echo '            HTML: $(HTML)'
+	@echo '             PDF: $(PDF)'
+	@echo '            EPUB: $(EPUB)'
+	@echo '            DOCX: $(DOCX)'	
+
+help:
+	@echo 'Makefile for generating documents from Asciidoc source files              '
+	@echo '                                                                          '
+	@echo 'Usage:                                                                    '
+	@echo '   make                                runs rules specified under all     '
+	@echo '   make all                            generates all of the file formats  '
+	@echo '   make clean                          remove the generated files         '
+	@echo '   make debug                          prints all of the variables used   '
+	@echo '   make epub                           (re)generates an epub file         '
+	@echo '   make help                           prints this message                '
+	@echo '   make html                           (re)generates an html file         '
+	@echo '   make mobi                           (re)generates a mobi file          '
+	@echo '   make pdf                            (re)generates a pdf file           '
+	@echo '   make -n [epub, html, mobi, pdf]     prints out the commands it would   '
+	@echo '                                       run without executing them         '
+	@echo '  	
 
 stage:
 	- $(MV) $(EXPORTED_DOCS) _stage
