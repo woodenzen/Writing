@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-echo "What is your essay's working title?"
+echo "What is your writing project's working title?"
 read NAME
 echo $NAME
 
@@ -8,7 +8,7 @@ mkdir /Users/will/Dropbox/Projects/Writing/Active/$NAME
 cd /Users/will/Dropbox/Projects/Writing/Active/$NAME
 mkdir _drafts
 mkdir _research
-mkdir _images
+mkdir media
 mkdir _stage
 # cp /Users/will/Dropbox/zettelkasten/Writing/Tools/TEMPLATE.sh .
 # cp /Users/will/Dropbox/Projects/Writing/Build/Templates/template.md $NAME.md
